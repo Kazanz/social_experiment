@@ -1,0 +1,5 @@
+[run]
+include = positive_affirmation/*
+omit = *migrations*, *tests*
+plugins =
+    django_coverage_plugin

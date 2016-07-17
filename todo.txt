@@ -1,0 +1,11 @@
+1.) Make everything enourageable.
+2.) Make links to a users page.
+3.) Make redirect on login to the "how to" page
+4.) Make the home page (add a signup to the home page)
+5.) Add a message about encouraging others after a person posts
+6.) Add an "icon to view new encouragements"
+7.) Make it so control gorup doesn't see encouragements
+8.) Make 10 dummy users.
+9.) Write the "auto-encouraging" algorithm.
+10.) Remove forgot password.
+
