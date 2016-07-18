@@ -38,6 +38,11 @@
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-toggleable-xs" id="bs-navbar-collapse-1">
+            <ul class="nav navbar-nav pull-xs-left">
+                <li class="nav-item">
+                  <a id="how-to" class="nav-link" href="{% url 'howto' %}">{% trans "How To" %}</a>
+                </li>
+            </ul>
 
             <ul class="nav navbar-nav pull-xs-right">
               {% if request.user.is_authenticated %}

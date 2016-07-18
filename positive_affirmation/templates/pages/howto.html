@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Affirmations: {{ object.username }}{% endblock %}
+
+{% block content %}
+<h1>{{ username }}</h1>
+<hr>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+        <div style="background-color: white; padding: 20px;">
+            <h2>How to participate in this study.</h2>
+            <p>This study involves studying how people make positive affirmations about their life. To participate all you must do is:</p>
+            <ul>
+                <li>Log in once a day</li>
+                <li>Post at least <b>1</b> positive affirmation a day</li>
+            </ul>
+
+            {% if not request.user.is_authenticated %}
+                <a href="{% url 'account_signup' %}">
+                    <button style="margin-bottom:20px;" class="btn btn-primary">Signup</button>
+                </a>
+            {% endif %}
+
+            <h4>What is a positive affirmation?</h4>
+            <p>Affirmations are positive, specific statements that help you to overcome self-sabotaging, negative thoughts. They help you visualize, and believe in, what you're affirming to yourself, helping you to make positive changes to your life and career.</p>
+            <p><b>Here are some examples</b><p>
+            <ul>
+            	<li>I have plenty of creativity for this project.</li>
+            	<li>My work will be recognized in a positive way by my boss and colleagues.</li>
+            	<li>I can do this!</li>
+            	<li>My opinion is respected and valued by my team.</li>
+            	<li>I am honest in my life, and my work.</li>
+            	<li>I'm grateful for the job I have.</li>
+            	<li>I can handle my next craving.</li>
+            	<li>I have to willpower to say no to cocaine.</li>
+            	<li>I am generous.</li>
+            	<li>I am happy.</li>
+            	<li>I will be a leader in my organization.</li>
+            </ul>
+
+            <h4>How to write a positive affirmation.</h4>
+            <ol>
+                <li>Choose one negative thought you have about yourself and write down the positive opposite.</li>
+                <li>Make your affirmations short so they're easier for you to remember.</li>
+                <li>Start your affirmations with “I” or “My.”</li>
+                <li>Write your affirmations in the present tense.</li>
+            </ol>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'users:redirect' %}">
+                    <button class="btn btn-primary">Post an Affirmation</button>
+                </a>
+            {% else %}
+                <a href="{% url 'account_signup' %}">
+                    <button class="btn btn-primary">Signup</button>
+                </a>
+            {% endif %}
+
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

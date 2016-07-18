@@ -24,7 +24,7 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
 
     def get_redirect_url(self):
-        return reverse('users:detail',
+        return reverse('users:dashboard',
                        kwargs={'username': self.request.user.username})
 
 
@@ -85,6 +85,11 @@ def encourage(request, pk):
     affirmation = get_object_or_404(Affirmation, pk=pk)
     if affirmation.user == request.user:
         return Http404
-    Encouragement.objects.create(encourager=request.user,
-                                 affirmation=affirmation)
+    Encouragement.objects.get_or_create(encourager=request.user,
+                                        affirmation=affirmation)
     return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def howto(request):
+    import pdb; pdb.set_trace();
+    return render(request, "howto.html", {})
