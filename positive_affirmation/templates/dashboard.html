@@ -30,35 +30,43 @@
 
   </div>
   <hr style="border: 0px solid white">
-  <h2>Help encourage others</h2>
+  <h2>{% if request.user.control %}Previous Affirmations{% else %}Help encourage others{% endif %}</h2>
   <hr>
   {% for affirmation in affirmations %}
     {% if forloop.counter0|divisibleby:2 %}
       <div class="row" style="margin-top: 10px;">
     {% endif %}
         <div class="col-sm-6">
-            <div style="border: 1px solid rgba(0,0,0,.1); padding: 10px; background-color: white; {% if affirmation.user == request.user %}opacity: .7;{% endif %}">
-              <p><b><a href="{% url 'users:userpage' affirmation.user.username %}">
+            <div style="border: 1px solid rgba(0,0,0,.1); padding: 10px; background-color: white; {% if affirmation.user == request.user and not request.user.control %}opacity: .7;{% endif %}">
+              <p><b>
+              {% if request.user.control %}
+                {{ affirmation.user.username }}
+              {% else %}
+                  <a href="{% url 'users:userpage' affirmation.user.username %}">
                       {% if affirmation.user == request.user %}You{% else %}{{ affirmation.user.username }}{% endif %}
-              </a></b></p>
+                  </a>
+              {% endif %}
+              </b></p>
             <hr>
             <p>{{ affirmation.text }}</p>
             <hr>
-            {% if request.user != affirmation.user %}
-            <a href="{% url 'users:encourage' affirmation.pk %}">
+            {% if not request.user.control %}
+              {% if request.user != affirmation.user %}
+              <a href="{% url 'users:encourage' affirmation.pk %}">
+              {% endif %}
+                <button class="btn btn-sm btn-secondary" {% if request.user == affirmation.user %}disabled{% endif %}>Encourage</button>
+             {% if request.user != affirmation.user %}
+             </a>
+             {% endif %}
+             <div style="float: right;">
+                 {% if affirmation.likes %}<span class="label label-pill label-success"
+                     style="cursor:pointer"
+                     data-toggle="popover"
+                     data-placement="bottom"
+                     title="Encouraged by:"
+                     data-content="{{ affirmation.encouragers }}">+{{ affirmation.likes }}</span>{% endif %}
+             </div>
             {% endif %}
-            <button class="btn btn-sm btn-secondary" {% if request.user == affirmation.user %}disabled{% endif %}>Encourage</button>
-            {% if request.user != affirmation.user %}
-            </a>
-            {% endif %}
-            <div style="float: right;">
-                {% if affirmation.likes %}<span class="label label-pill label-success"
-                    style="cursor:pointer"
-                    data-toggle="popover"
-                    data-placement="bottom"
-                    title="Encouraged by:"
-                    data-content="{{ affirmation.encouragers }}">+{{ affirmation.likes }}</span>{% endif %}
-            </div>
           </div>
         </div>
     {% if not forloop.counter0|divisibleby:2 and forloop.counter0 != 0 %}

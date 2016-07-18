@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from copy import copy
-from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
@@ -22,6 +20,7 @@ class User(AbstractUser):
     control = models.NullBooleanField(null=True)
     login_count = models.IntegerField(default=0)
     recent_login = models.DateTimeField(null=True)
+    dummy_user = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username
@@ -31,7 +30,7 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         if self.control is None:
-            self.control = User.control_count < User.experiment_count
+            self.control = User.control_count() < User.experiment_count()
         return super(User, self).save(*args, **kwargs)
 
     @staticmethod

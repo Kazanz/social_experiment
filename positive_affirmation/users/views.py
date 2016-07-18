@@ -60,10 +60,15 @@ def dashboard(request, username):
         form.save()
         messages.success(request, "Affirmation Created")
 
-    affirmations = Affirmation.objects.order_by('-created').all()
+    query = Affirmation.objects.order_by('-created')
+    if request.user.control:
+        query = query.filter(user=request.user)
+    else:
+        experiment_users = User.objects.filter(control=False).all()
+        query = query.filter(user__in=experiment_users)
     context = {
         "username": request.user.username,
-        "affirmations": affirmations,
+        "affirmations": query.all()[:20],
         "form": form,
     }
     return render(request, "dashboard.html", context)

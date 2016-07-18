@@ -1,7 +1,6 @@
-6.) Add an "icon to view new encouragements"
-7.) Make it so control gorup doesn't see encouragements
 8.) Make 10 dummy users.
 9.) Write the "auto-encouraging" algorithm.
 10.) Remove forgot password.
+Remove email signup
 11.) Add the name of the website (whatever we decide that to be)
 
