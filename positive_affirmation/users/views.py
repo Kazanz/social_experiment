@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 
 from .forms import CreateAffirmationForm
-from .models import User, Affirmation, Encouragement
+from .models import User, Affirmation, Encouragement, Login
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -24,6 +24,10 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
 
     def get_redirect_url(self):
+        if not self.request.user.saw_howto:
+            self.request.user.saw_howto = True
+            self.request.user.save()
+            return reverse('howto')
         return reverse('users:dashboard',
                        kwargs={'username': self.request.user.username})
 

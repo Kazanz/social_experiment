@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Affirmations: {{ object.username }}{% endblock %}
+{% block title %}Affirmations{% endblock %}
 
 {% block content %}
 <div class="jumbotron">
-  <h1 style="font-size:70px" class="display-3">Online Self-Improvment Research</h1>
-  <p class="lead">This is a research project conducted by Zach Kazanski to test how people use self-improvement tools online.</p>
+  <h1 style="font-size:70px" class="display-3">Self-Improvement Journal</h1>
+  <p class="lead">Alpha test of a self-improvement journal designed to help you develop good habits and deal successfully with stress.</p>
   <hr class="m-y-2">
-  <p>This research is 100% anonymous and will help us better understand how people use self-improvement tools online. If you would like to contribute to this research please <a href="{% url 'account_signup' %}">signup</a> for an account.</p>
+  <p>Your journal is 100% anonymous and will help us better understand how to improve our product. If you would like to test the alpha project please <a href="{% url 'account_signup' %}">signup</a> for an account.</p>
   <p class="lead">
   <a style="display:inline-block;" class="btn btn-primary btn-lg" href="{% url 'account_signup' %}" role="button">Sign up</a>
   <a style="display:inline-block;" class="btn btn-secondary btn-lg" href="{% url 'account_login' %}" role="button">Sign in</a>

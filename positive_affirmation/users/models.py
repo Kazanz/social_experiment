@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.signals import user_logged_in
+from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -21,6 +21,7 @@ class User(AbstractUser):
     login_count = models.IntegerField(default=0)
     recent_login = models.DateTimeField(null=True)
     dummy_user = models.BooleanField(default=False)
+    saw_howto = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username
@@ -80,6 +81,7 @@ class Encouragement(models.Model):
 
 class Login(models.Model):
     time = models.DateTimeField()
+    logout_time = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(User)
 
 
@@ -89,4 +91,11 @@ def track(sender, user, request, **kwargs):
     Login.objects.create(user=user, time=now())
 
 
+def track_logout(*args, **kwargs):
+    login = Login.objects.filter(user=kwargs['user']).order_by('-time').first()
+    login.logout_time = now()
+    login.save()
+
+
 user_logged_in.connect(track)
+user_logged_out.connect(track_logout)

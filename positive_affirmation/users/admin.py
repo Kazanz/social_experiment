@@ -5,7 +5,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from .models import User, Affirmation
+from .models import User, Affirmation, Encouragement, Login
 
 
 class MyUserChangeForm(UserChangeForm):
@@ -36,7 +36,7 @@ class MyUserAdmin(AuthUserAdmin):
     form = MyUserChangeForm
     add_form = MyUserCreationForm
     fieldsets = (
-            ('User Profile', {'fields': ('name',)}),
+        ('User Profile', {'fields': ('name',)}),
     ) + AuthUserAdmin.fieldsets
     list_display = ('username', 'name', 'is_superuser')
     search_fields = ['name']
@@ -44,4 +44,14 @@ class MyUserAdmin(AuthUserAdmin):
 
 @admin.register(Affirmation)
 class AffirmationAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Encouragement)
+class EncouragementAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Login)
+class LoginAdmin(admin.ModelAdmin):
     pass

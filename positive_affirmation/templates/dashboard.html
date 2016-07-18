@@ -14,7 +14,7 @@
         <form method="post" action="{% url 'users:dashboard' user.username %}">
           {% csrf_token %}
           <div class="form-group">
-            <textarea placeholder="What do you have to say..." style="width: 100%; border: 1px solid white" id="text" name="text"></textarea>
+            <textarea placeholder="Your positive affirmatin here..." style="width: 100%; border: 1px solid white" id="text" name="text"></textarea>
           </div>
           {{ form.text.errors }}
           <button style="margin-bottom: 10px; width: 100%;" class="btn btn-primary">Submit</button>
@@ -25,6 +25,8 @@
       <div style="padding: 10px; margin-top: 20px;">
         <h3>Need help?</h3>
         <p>Check out the <a href="{% url 'howto' %}">"how to" page.</a></p>
+        <h3>Give Feeback</h3>
+        <p>Send your feedback to <b>productdevsuggestions@gmail.com</b></p>
       </div>
     </div>
 
