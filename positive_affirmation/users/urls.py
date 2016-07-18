@@ -55,4 +55,12 @@ urlpatterns = [
         name='encourage'
     ),
 
+    # URL pattern for user dashboard
+    url(
+        regex=r'^(?P<username>[\w.@+-]+)/encouragements/$',
+        view=views.new_encouragements,
+        name='new_encouragements'
+    ),
+
+
 ]

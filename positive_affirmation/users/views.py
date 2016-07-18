@@ -89,7 +89,10 @@ def encourage(request, pk):
                                         affirmation=affirmation)
     return redirect(request.META.get('HTTP_REFERER'))
 
+
 @login_required
-def howto(request):
-    import pdb; pdb.set_trace();
-    return render(request, "howto.html", {})
+def new_encouragements(request, username):
+    context = {'encour': request.user.new_encouragements}
+    if not context['encour']:
+        return Http404
+    return render(request, "encouragements.html", context)

@@ -1,4 +1,3 @@
-4.) Make the home page (add a signup to the home page)
 6.) Add an "icon to view new encouragements"
 7.) Make it so control gorup doesn't see encouragements
 8.) Make 10 dummy users.

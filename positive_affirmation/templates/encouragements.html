@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Affirmations: {{ object.username }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>{{ username }}</h1>
+  <hr>
+  {% for encouragement in encour %}
+    {% with encouragement.affirmation as affirmation %}
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-6">
+          <div style="border: 1px solid rgba(0,0,0,.1); padding: 10px; background-color: white;">
+            <p><b>{{ affirmation.user }}</b></p>
+            <hr>
+            <p>{{ affirmation.text }}</p>
+            <hr>
+            {% if request.user != affirmation.user %}
+            <a href="{% url 'users:encourage' affirmation.pk %}">
+            {% endif %}
+            <button class="btn btn-sm btn-secondary" {% if request.user == affirmation.user %}disabled{% endif %}>Encourage</button>
+            {% if request.user != affirmation.user %}
+            </a>
+            {% endif %}
+            <div style="float: right;">
+                {% if affirmation.likes %}<span class="label label-pill label-success"
+                    style="cursor:pointer"
+                    data-toggle="popover"
+                    data-placement="bottom"
+                    title="Encouraged by:"
+                    data-content="{% for username in affirmation.encouragers %}<p>{{ username }}</p>{% endfor %}"
+                    >+{{ affirmation.likes }}</span>{% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div style="border: 1px solid rgba(0,0,0,.1); padding: 10px; background-color: white;">
+              <p>Encouraged by:</p>
+              <p style="font-size:20px;"><a href="{% url 'users:userpage' encouragement.encourager.username %}">{{ encouragement.encourager.username }}</a></p>
+          </div>
+        </div>
+      </div>
+      <hr>
+    {% endwith %}
+  {% endfor %}
+
+
+</div>
+{% endblock content %}
+
+{% block extrajs %}
+<script>
+$(function () {
+    $('[data-toggle="popover"]').popover({html: true})
+})
+</script>
+{% endblock %}

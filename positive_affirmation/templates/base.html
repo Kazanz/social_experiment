@@ -46,6 +46,12 @@
 
             <ul class="nav navbar-nav pull-xs-right">
               {% if request.user.is_authenticated %}
+                {% if request.user.new_encouragements %}
+                <li class="nav-item">
+                  <a style="color: white;" class="nav-link" href="{% url 'users:new_encouragements' request.user.username %}">
+                      <span class="label label-pill label-success">{{ request.user.new_encouragements|length }} new encouragement{% if request.user.new_encouragements|length > 1 %}s{% endif %}</a>
+                </li>
+                {% endif %}
                 <li class="nav-item">
                   <a style="color: white;" class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign out" %}</a>
                 </li>
