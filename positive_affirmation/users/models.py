@@ -35,11 +35,11 @@ class User(AbstractUser):
 
     @staticmethod
     def control_count():
-        return User.objects.filter(control=True).count()
+        return User.objects.filter(control=True, dummy_user=False).count()
 
     @staticmethod
     def experiment_count():
-        return User.objects.filter(control=False).count()
+        return User.objects.filter(control=False, dummy_user=False).count()
 
     @property
     def new_encouragements(self):
@@ -57,6 +57,7 @@ class Affirmation(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     text = models.CharField(max_length=500)
     created = models.DateTimeField(auto_now=True)
+    simulated = models.BooleanField(default=False)
 
     @property
     def likes(self):

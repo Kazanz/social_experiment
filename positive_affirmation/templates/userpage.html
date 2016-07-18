@@ -33,7 +33,7 @@
                     data-toggle="popover"
                     data-placement="bottom"
                     title="Encouraged by:"
-                    data-content="{% for username in affirmation.encouragers %}<p>{{ username }}</p>{% endfor %}"
+                    data-content="{{ affirmation.encouragers }}"
                     >+{{ affirmation.likes }}</span>{% endif %}
             </div>
           </div>
