@@ -29,7 +29,7 @@ class User(AbstractUser):
         return reverse('users:detail', kwargs={'username': self.username})
 
     def save(self, *args, **kwargs):
-        if self.control is None:
+        if self.control is None and not self.dummy_user:
             self.control = User.control_count() < User.experiment_count()
         return super(User, self).save(*args, **kwargs)
 
