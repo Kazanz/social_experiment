@@ -1,5 +1,0 @@
-10.) Remove forgot password.
-Remove email signup
-11.) Add the name of the website (whatever we decide that to be)
-Deploy
-
